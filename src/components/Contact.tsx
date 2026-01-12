@@ -46,17 +46,6 @@ export default function Contact({ ref }: { ref: React.Ref<HTMLElement> }) {
       });
   }
 
-  function openGithub() {
-    window.open("https://github.com/blozinski056", "_blank");
-  }
-
-  function openLinkedin() {
-    window.open("https://www.linkedin.com/in/bryce-lozinski", "_blank");
-  }
-
-  function openResume() {
-    window.open(resume, "_blank");
-  }
   return (
     <section className="contact" ref={ref}>
       <h2>Contact</h2>
@@ -85,13 +74,24 @@ export default function Contact({ ref }: { ref: React.Ref<HTMLElement> }) {
         </form>
         <div className="confirmation">Thank you for contacting me!</div>
         <div className="contact-links">
-          <button className="link-github hidden" onClick={openGithub}>
+          <button
+            className="link-github hidden"
+            onClick={() => open("https://github.com/blozinski056", "_blank")}
+          >
             <img src={githubIcon} alt="" />
           </button>
-          <button className="link-linkedin hidden" onClick={openLinkedin}>
+          <button
+            className="link-linkedin hidden"
+            onClick={() =>
+              open("https://www.linkedin.com/in/bryce-lozinski", "_blank")
+            }
+          >
             <img src={linkedinIcon} alt="" />
           </button>
-          <button className="link-resume hidden" onClick={openResume}>
+          <button
+            className="link-resume hidden"
+            onClick={() => open(resume, "_blank")}
+          >
             <img src={resumeIcon} alt="" />
           </button>
         </div>

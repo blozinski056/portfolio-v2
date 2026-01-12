@@ -156,6 +156,30 @@ h3 {
   color: $color-green;
   font-size: 20px;
 }
+.button-primary {
+  @include w-h(145px, 40px);
+  @include flexbox;
+  gap: 40px;
+  padding: 2px 5px;
+  text-transform: uppercase;
+  border: 2px solid gray;
+  border-radius: 2px;
+  background-color: transparent;
+  cursor: pointer;
+  opacity: 0;
+  color: gray;
+  font-size: 20px;
+  font-weight: 500;
+  transition-duration: 0.3s;
+  animation: 0.7s ease-in-out 2.1s appear forwards;
+
+  &:hover {
+    transition: 0.5s ease;
+    border: 2px solid $color-green;
+    color: $color-green;
+    background-color: black;
+  }
+}
 
 // BACKGROUND TRIANGLES
 .bg-triangle-top {
@@ -282,31 +306,6 @@ h3 {
   .intro-buttons-container {
     @include flexbox;
     gap: 30px;
-
-    .intro-button {
-      @include w-h(145px, 40px);
-      @include flexbox;
-      gap: 40px;
-      padding: 2px 5px;
-      text-transform: uppercase;
-      border: 2px solid gray;
-      border-radius: 2px;
-      background-color: transparent;
-      cursor: pointer;
-      opacity: 0;
-      color: gray;
-      font-size: 20px;
-      font-weight: 500;
-      transition-duration: 0.3s;
-      animation: 0.7s ease-in-out 2.1s appear forwards;
-
-      &:hover {
-        transition: 0.5s ease;
-        border: 2px solid $color-green;
-        color: $color-green;
-        background-color: black;
-      }
-    }
   }
 }
 
@@ -396,6 +395,7 @@ h3 {
     color: $color-white;
   }
   .projects-container {
+    @include flexbox($fd: column);
     width: 100%;
     opacity: 0;
     padding: 10vh 0;
@@ -408,6 +408,7 @@ h3 {
       width: 100%;
       gap: 40px;
       padding: 20px;
+      margin-bottom: 20px;
 
       .projects-tile {
         @include flexbox($fd: column, $jc: flex-start);
@@ -480,6 +481,9 @@ h3 {
           }
         }
       }
+    }
+    .button-primary {
+      @include w-h(300px, 40px);
     }
   }
 }
@@ -678,8 +682,12 @@ h3 {
   .intro .intro-buttons-container {
     gap: clamp(20px, 2.4vw, 30px);
   }
-  .intro .intro-buttons-container .intro-button {
+  .button-primary {
     @include w-h(clamp(120px, 11.6vw, 145px), clamp(35px, 3.2vw, 40px));
+    font-size: clamp(15px, 1.6vw, 20px);
+  }
+  .projects .projects-container .button-primary {
+    @include w-h(clamp(240px, 24vw, 300px), clamp(35px, 3.2vw, 40px));
     font-size: clamp(15px, 1.6vw, 20px);
   }
 }

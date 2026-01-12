@@ -11,10 +11,6 @@ export default function Intro({
     }
   }
 
-  function openResume() {
-    window.open(resume, "_blank");
-  }
-
   return (
     <section className="intro">
       <ul>
@@ -36,10 +32,13 @@ export default function Intro({
       <h1>Front End Developer</h1>
 
       <div className="intro-buttons-container">
-        <button className="intro-button" onClick={openResume}>
+        <button
+          className="button-primary"
+          onClick={() => open(resume, "_blank")}
+        >
           Resume
         </button>
-        <button className="intro-button" onClick={contact}>
+        <button className="button-primary" onClick={contact}>
           Contact
         </button>
       </div>

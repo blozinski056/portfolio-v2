@@ -31,7 +31,9 @@ export default function Projects() {
               </button>
               <button
                 className="projects-link"
-                onClick={() => open("https://gotcoffeeshop.com/", "_blank")}
+                onClick={() =>
+                  open("https://gotcoffeeshop.netlify.app/", "_blank")
+                }
               >
                 Live Website
               </button>
@@ -60,7 +62,41 @@ export default function Projects() {
               </button>
               <button
                 className="projects-link"
-                onClick={() => open("https://order8game.com/", "_blank")}
+                onClick={() =>
+                  open("https://order8game.netlify.app/", "_blank")
+                }
+              >
+                Live Website
+              </button>
+            </div>
+          </div>
+          <div className="projects-tile">
+            <h3>Karen Parcell Homes</h3>
+            <p>
+              "Karen Parcell Homes" is a personal website I created for my
+              friend's mom, a Berkshire Hathaway real estate agent.
+            </p>
+            <div className="projects-chips">
+              <div>Next.js</div>
+              <div>TypeScript</div>
+            </div>
+            <div className="projects-buttons">
+              <button
+                className="projects-github"
+                onClick={() =>
+                  open(
+                    "https://github.com/blozinski056/karen-parcell",
+                    "_blank"
+                  )
+                }
+              >
+                <img src={link} alt="" />
+              </button>
+              <button
+                className="projects-link"
+                onClick={() =>
+                  open("https://www.karenparcellhomes.com/", "_blank")
+                }
               >
                 Live Website
               </button>
@@ -83,20 +119,22 @@ export default function Projects() {
               <button
                 className="projects-github"
                 onClick={() =>
-                  open("https://github.com/blozinski056/reminder-app")
+                  open("https://github.com/blozinski056/reminder-app", "_blank")
                 }
               >
                 <img src={link} alt="" />
               </button>
               <button
                 className="projects-link"
-                onClick={() => open("https://www.remindmenotes.com/")}
+                onClick={() =>
+                  open("https://remind-me-notes.netlify.app/", "_blank")
+                }
               >
                 Live Website
               </button>
             </div>
           </div>
-          <div className="projects-tile">
+          {/* <div className="projects-tile">
             <h3>MovieTracker</h3>
             <p>
               "MovieTracker" implements user authentication, tracks movies the
@@ -125,8 +163,16 @@ export default function Projects() {
                 Live Website
               </button>
             </div>
-          </div>
+          </div> */}
         </div>
+        <button
+          onClick={() =>
+            open("https://github.com/blozinski056?tab=repositories", "_blank")
+          }
+          className="button-primary"
+        >
+          More Projects Here
+        </button>
       </div>
     </section>
   );
