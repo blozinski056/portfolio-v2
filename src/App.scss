@@ -1,0 +1,740 @@
+// VARIABLES
+$color-green: rgb(0, 167, 130);
+$color-white: rgb(230, 255, 255);
+$color-black: rgb(26, 26, 26);
+
+// MIXINS
+@mixin w-h($width, $height) {
+  width: $width;
+  height: $height;
+}
+@mixin flexbox($fd: row, $ai: center, $jc: center) {
+  display: flex;
+  flex-direction: $fd;
+  align-items: $ai;
+  justify-content: $jc;
+}
+
+// KEYFRAMES
+// Logo box spin animations
+@keyframes spinLeftHalf {
+  0% {
+    transform: rotate(45deg) rotate3d(1, 1, 0, 0deg);
+    z-index: 11;
+  }
+  50% {
+    transform: rotate(45deg) rotate3d(1, 1, 0, 180deg);
+    z-index: 9;
+  }
+  100% {
+    transform: rotate(45deg) rotate3d(1, 1, 0, 355deg);
+    z-index: 9;
+  }
+}
+@keyframes spinRightHalf {
+  0% {
+    transform: rotate(45deg) rotate3d(1, 1, 0, 0deg);
+    z-index: 9;
+  }
+  50% {
+    transform: rotate(45deg) rotate3d(1, 1, 0, 180deg);
+    z-index: 9;
+  }
+  100% {
+    transform: rotate(45deg) rotate3d(1, 1, 0, 355deg);
+    z-index: 11;
+  }
+}
+// Intro text animations
+@keyframes dropIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20vh);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+// Sroll down indicator animations
+@keyframes mouse-appear {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 5vh);
+  }
+  80% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+@keyframes mouse-disappear {
+  0% {
+    opacity: 1;
+    transform: translateX(-50%);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -10vh);
+  }
+}
+@keyframes bounce {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  10% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  40% {
+    opacity: 1;
+    transform: translate(-50%, 50%);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+// Link reveal animation
+@keyframes revealLinks {
+  0% {
+    opacity: 0;
+    transform: translateY(10vh);
+  }
+  80% {
+    opacity: 1;
+    transform: translateY(-3vh);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+// Section appear animation
+@keyframes appear {
+  0% {
+    opacity: 0;
+    transform: translateY(5vh);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// GLOBAL STYLES
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: $color-white;
+  font-family: "Montserrat", sans-serif;
+}
+main {
+  @include w-h(100%, auto);
+  @include flexbox(column, center, flex-start);
+  background-color: $color-black;
+}
+section {
+  position: relative;
+  width: 100%;
+}
+h2 {
+  position: absolute;
+  top: 45%;
+  left: max(2.75%, 24px);
+  transform: translateX(-50%) rotate(-90deg);
+  text-align: center;
+  font-size: clamp(20px, 3vw, 50px);
+  color: $color-black;
+}
+h3 {
+  color: $color-green;
+  font-size: 20px;
+}
+
+// BACKGROUND TRIANGLES
+.bg-triangle-top {
+  width: 100vw;
+  height: 0;
+  border-top: 20vh solid $color-black;
+  border-left: 30vw solid transparent;
+  border-right: 70vw solid transparent;
+  background-color: $color-white;
+}
+
+.bg-triangle-bottom {
+  width: 100vw;
+  height: 0;
+  border-bottom: 20vh solid $color-black;
+  border-left: 70vw solid transparent;
+  border-right: 30vw solid transparent;
+  background-color: $color-white;
+}
+
+// SCROLL DOWN INDICATOR
+.scroll-down {
+  @include flexbox($fd: column);
+  position: absolute;
+  left: 50%;
+  top: 60%;
+  opacity: 0;
+  animation: 1s ease-in-out 3s mouse-appear, infinite 3s ease 4s bounce;
+
+  &.disappear {
+    animation: 0.5s ease mouse-disappear;
+  }
+
+  .mouse {
+    @include w-h(35px, 35px);
+  }
+
+  .arrows {
+    @include w-h(15px, 15px);
+    transform: translateY(-2px);
+  }
+}
+
+// LOGO
+.logo-container {
+  @include w-h(70px, 70px);
+  @include flexbox;
+  position: fixed;
+  top: 1vw;
+  left: 1vw;
+  z-index: 10;
+
+  .logo {
+    font-size: 32px;
+    font-weight: bold;
+    color: $color-white;
+    text-shadow: 0 0 4px $color-black;
+    z-index: 10;
+    cursor: pointer;
+  }
+  .box-left,
+  .box-right {
+    @include w-h(50px, 50px);
+    align-self: center;
+    justify-self: center;
+    position: absolute;
+    cursor: pointer;
+  }
+  .box-left {
+    border-left: 3px solid $color-green;
+    border-bottom: 3px solid $color-green;
+    animation: spinLeftHalf 7s linear infinite;
+  }
+  .box-right {
+    border-top: 3px solid $color-green;
+    border-right: 3px solid $color-green;
+    animation: spinRightHalf 7s linear infinite;
+  }
+}
+
+// INTRO SECTION
+.intro {
+  @include flexbox($fd: column);
+  height: 70vh;
+
+  ul {
+    list-style-type: none;
+
+    li {
+      display: inline-block;
+      background: linear-gradient(180deg, $color-green 40%, $color-white 100%);
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+      letter-spacing: 1px;
+      opacity: 0;
+      font-size: clamp(40px, 10vw, 150px);
+      animation: dropIn 0.2s ease-in-out forwards;
+
+      @for $i from 1 through 5 {
+        &:nth-child(#{$i}) {
+          animation-delay: $i * 0.1s + 0.3s;
+        }
+      }
+
+      @for $i from 7 through 14 {
+        &:nth-child(#{$i}) {
+          animation-delay: $i * 0.1s + 0.2s;
+        }
+      }
+    }
+  }
+
+  h1 {
+    letter-spacing: 2px;
+    opacity: 0;
+    font-size: 30px;
+    animation: 0.7s ease-in-out 1.8s appear forwards;
+    cursor: default;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+  }
+
+  .intro-buttons-container {
+    @include flexbox;
+    gap: 30px;
+
+    .intro-button {
+      @include w-h(145px, 40px);
+      @include flexbox;
+      gap: 40px;
+      padding: 2px 5px;
+      text-transform: uppercase;
+      border: 2px solid gray;
+      border-radius: 2px;
+      background-color: transparent;
+      cursor: pointer;
+      opacity: 0;
+      color: gray;
+      font-size: 20px;
+      font-weight: 500;
+      transition-duration: 0.3s;
+      animation: 0.7s ease-in-out 2.1s appear forwards;
+
+      &:hover {
+        transition: 0.5s ease;
+        border: 2px solid $color-green;
+        color: $color-green;
+        background-color: black;
+      }
+    }
+  }
+}
+
+// ABOUT SECTION
+.about {
+  @include flexbox;
+  height: max(50vh, fit-content);
+  padding: 50px 0;
+  background-color: $color-white;
+
+  .about-container {
+    @include flexbox;
+    max-width: 1020px;
+    width: 100%;
+    gap: 20px;
+    padding-left: max(70px, 3vw);
+    padding-right: max(50px, 3vw);
+    opacity: 0;
+
+    .about-img-container {
+      width: 200px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        object-fit: cover;
+        transform: scale(110%) translateY(5px);
+      }
+    }
+
+    .about-info {
+      @include flexbox($fd: column, $ai: flex-start, $jc: flex-start);
+      max-width: 600px;
+      width: 100%;
+
+      p {
+        font-size: 30px;
+        font-weight: 700;
+        color: $color-black;
+        margin-bottom: 10px;
+
+        span {
+          color: $color-green;
+          transition: 0.5s;
+        }
+
+        &:nth-child(2),
+        &:nth-child(3) {
+          font-size: 20px;
+        }
+      }
+
+      .about-skills {
+        @include flexbox;
+        width: fit-content;
+        flex-wrap: wrap;
+        gap: 5px;
+
+        div {
+          @include w-h(50px, 50px);
+          @include flexbox;
+
+          img {
+            width: 100%;
+            display: block;
+            object-fit: contain;
+            transition: 0.3s;
+
+            &:hover {
+              transform: scale(1.2);
+              transition: 0.3s;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// PROJECTS SECTION
+.projects {
+  @include flexbox;
+
+  h2 {
+    color: $color-white;
+  }
+  .projects-container {
+    width: 100%;
+    opacity: 0;
+    padding: 10vh 0;
+    padding-left: max(50px, 3vw);
+    padding-right: max(30px, 3vw);
+    margin: 0 auto;
+
+    & > div {
+      @include flexbox;
+      width: 100%;
+      gap: 40px;
+      padding: 20px;
+
+      .projects-tile {
+        @include flexbox($fd: column, $jc: flex-start);
+        max-width: 300px;
+        width: 100%;
+        aspect-ratio: 1;
+        gap: 10px;
+        padding: 25px;
+        border: solid 2px $color-green;
+        border-radius: 50px;
+        box-shadow: 0 0 20px $color-green;
+
+        .projects-chips {
+          @include flexbox;
+          width: 95%;
+          flex-wrap: wrap;
+          gap: 10px;
+          margin-top: auto;
+
+          div {
+            padding: 3px;
+            border: solid 1px $color-white;
+            border-radius: 5px;
+            font-size: 12px;
+          }
+        }
+
+        .projects-buttons {
+          @include flexbox;
+          width: 100%;
+          gap: 20px;
+
+          .projects-github {
+            @include w-h(35px, 35px);
+            @include flexbox;
+            background-color: $color-green;
+            border: none;
+            border-radius: 5px;
+            transition: 0.3s;
+            cursor: pointer;
+
+            &:hover {
+              box-shadow: 0 0 10px $color-green;
+              transition: 0.3s;
+            }
+
+            img {
+              @include w-h(25px, 25px);
+              object-fit: contain;
+            }
+          }
+
+          .projects-link {
+            @include w-h(fit-content, 35px);
+            padding: 0 15px;
+            background-color: $color-green;
+            border: none;
+            border-radius: 5px;
+            color: $color-black;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+          }
+
+          .projects-github:hover,
+          .projects-link:hover {
+            box-shadow: 0 0 12px $color-green;
+            transition: 0.3s;
+          }
+        }
+      }
+    }
+  }
+}
+
+// CONTACT SECTION
+.contact {
+  @include flexbox;
+  width: 100%;
+  padding: 10vh 0;
+  position: relative;
+
+  h2 {
+    color: $color-white;
+  }
+
+  .contact-container {
+    @include flexbox($fd: column);
+    width: 500px;
+    padding-left: max(50px, 3vw);
+    padding-right: max(30px, 3vw);
+
+    .contact-title {
+      color: $color-green;
+      font-size: 30px;
+      margin-bottom: 40px;
+
+      &.hidden {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      &.reveal {
+        opacity: 1;
+        transform: none;
+        transition: 0.3s ease-in;
+        transition-delay: 0s;
+      }
+    }
+    .contact-form {
+      @include flexbox($fd: column, $jc: flex-start);
+      width: 100%;
+      gap: 40px;
+      margin-bottom: 40px;
+
+      &.remove {
+        display: none;
+      }
+      .hidden {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      .reveal {
+        opacity: 1;
+        transform: none;
+        transition: 0.3s ease-in;
+      }
+      .input {
+        position: relative;
+        width: 100%;
+
+        & input,
+        & textarea {
+          background-color: transparent;
+          cursor: text;
+          border: none;
+          border-bottom: solid 2px $color-green;
+          outline: none;
+          color: $color-green;
+          font-weight: 500;
+        }
+        & input {
+          @include w-h(100%, 25px);
+
+          &:focus ~ span,
+          &:valid ~ span {
+            color: rgb(53, 53, 53);
+            transform: translateY(-18px);
+          }
+        }
+        & textarea {
+          @include w-h(100%, 60px);
+          resize: none;
+
+          &:focus ~ span,
+          &:valid ~ span {
+            color: rgb(53, 53, 53);
+            transform: translateY(-55px);
+          }
+        }
+        & span {
+          position: absolute;
+          left: 0;
+          bottom: 5px;
+          color: $color-green;
+          font-weight: 500;
+          pointer-events: none;
+          transition: 0.5s;
+        }
+        & textarea ~ span {
+          bottom: 10px;
+        }
+        &.name.reveal {
+          transition-delay: 0.2s;
+        }
+        &.email.reveal {
+          transition-delay: 0.4s;
+        }
+        &.message.reveal {
+          transition-delay: 0.6s;
+        }
+      }
+      .submit {
+        @include w-h(70px, 30px);
+        border: 1px solid $color-green;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 700;
+        background-color: $color-black;
+        color: $color-green;
+        transition: 0.3s;
+
+        &.reveal {
+          transition-delay: 0.8s;
+        }
+        &:hover {
+          transition: 0.3s;
+          background-color: $color-green;
+          color: black;
+        }
+      }
+    }
+    .confirmation {
+      display: none;
+      height: 264px;
+      margin-bottom: 40px;
+      font-size: 20px;
+      font-weight: 700;
+      color: $color-green;
+      text-align: center;
+
+      &.reveal {
+        @include flexbox($fd: column);
+      }
+    }
+    .contact-links {
+      @include flexbox;
+      gap: 60px;
+
+      button {
+        @include w-h(70px, 70px);
+        cursor: pointer;
+        outline: none;
+        border: none;
+        background-color: transparent;
+
+        &.hidden {
+          opacity: 0;
+          transform: translateY(10vh);
+        }
+        img {
+          width: 100%;
+          display: block;
+          transition: 0.3s transform;
+        }
+        &:hover img {
+          transform: scale(1.2);
+          transition: 0.3s transform;
+        }
+      }
+      .link-github.reveal {
+        animation: 0.3s ease-in 1s forwards revealLinks;
+      }
+      .link-linkedin.reveal {
+        animation: 0.3s ease-in 1.2s forwards revealLinks;
+      }
+      .link-resume.reveal {
+        animation: 0.3s ease-in 1.4s forwards revealLinks;
+      }
+    }
+  }
+}
+
+// MEDIA QUERIES
+@media (max-width: 1560px) {
+  .projects .projects-container > div {
+    display: grid;
+    grid-template-columns: repeat(2, 300px);
+  }
+  .projects .projects-container > div .projects-tile {
+    min-width: 300px;
+  }
+}
+@media (max-width: 1250px) {
+  .intro h1 {
+    font-size: clamp(20px, 2.4vw, 30px);
+  }
+  .intro .intro-buttons-container {
+    gap: clamp(20px, 2.4vw, 30px);
+  }
+  .intro .intro-buttons-container .intro-button {
+    @include w-h(clamp(120px, 11.6vw, 145px), clamp(35px, 3.2vw, 40px));
+    font-size: clamp(15px, 1.6vw, 20px);
+  }
+}
+@media (max-width: 1020px) {
+  .about .about-container {
+    flex-direction: column;
+  }
+  .about .about-container .about-info {
+    max-width: 435px;
+  }
+  .about .about-container .about-info .about-skills {
+    align-self: center;
+  }
+}
+@media (max-width: 900px) {
+  .intro .intro-button-container .intro-button {
+    gap: clamp(20px, 4.44vw, 40px);
+    font-size: clamp(12px, 1.7vw, 20px);
+  }
+}
+@media (max-width: 775px) {
+  .projects .projects-container > div {
+    @include flexbox($jc: flex-start);
+    overflow-x: auto;
+    gap: 30px;
+  }
+  .projects .projects-container > div .projects-tile {
+    min-width: 250px;
+    width: 250px;
+    aspect-ratio: 0.75;
+  }
+  .projects .projects-container > div .projects-tile .projects-chips {
+    width: 100%;
+  }
+}
+@media (max-width: 650px) {
+  .about .about-container .about-info .about-skills {
+    display: grid;
+    grid-template-columns: repeat(4, 50px);
+  }
+}
+@media (max-width: 600px) {
+  .logo-container {
+    top: 10px;
+    left: 20px;
+  }
+}
+@media (max-width: 500px) {
+  .about .about-container .about-info {
+    align-items: center;
+  }
+  .about .about-container .about-info p {
+    text-align: center;
+  }
+  .contact .contact-container .contact-links {
+    gap: 20px;
+  }
+}
